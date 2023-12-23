@@ -18,7 +18,7 @@ gflops(n, t) = 2 * n / max(t, 32)
 
 function plot_benchmarks(title, julia)
     p = plot(; title=title, xscale=:log10, xlabel="Vector size", ylabel="GFLOPS",
-             xticks=floor.(Int, exp10.(0:9)), yticks=0:2.5:40, legend=:topleft)
+             xticks=floor.(Int, exp10.(0:9)), yticks=0:5:60, legend=:topleft)
     plot!(p, julia[:, 1], gflops.(julia[:, 1], julia[:, 2]); label="Julia", marker=:circle, markersize=3)
     return p
 end
