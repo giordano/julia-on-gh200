@@ -2,11 +2,13 @@
 BandwidthBenchmark = "68eb07c1-04fd-4e62-9736-d6127c4c03c6"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
 ThreadPinning = "811555cd-349b-4f26-b7bc-1f208b848042"
 
 [compat]
 BandwidthBenchmark = "0.2"
 CSV = "0.10"
 DataFrames = "1.6"
+Tables = "1.11"
 ThreadPinning = "0.7.17"
 julia = "1.9"

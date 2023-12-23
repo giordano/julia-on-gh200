@@ -2,6 +2,7 @@ using ThreadPinning
 using BandwidthBenchmark
 using DataFrames
 using CSV
+using Tables
 
 pinthreads(:numa)
 
@@ -15,4 +16,8 @@ let
     m = flopsscaling()
     df = DataFrame("# Threads" => m[:, 1], "Triad Performance (MFlop/s)" => m[:, 2])
     CSV.write(joinpath(@__DIR__, "flopsscaling.csv"), df)
+end
+let
+    latencies = ThreadPinning.bench_core2core_latency()
+    CSV.write(joinpath(@__DIR__, "core2core_latency.csv"), Tables.table(latencies))
 end
