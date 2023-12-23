@@ -29,7 +29,6 @@ function plot_memdomains_scaling(results::DataFrame, kernel::String)
                 xlabel="Number of cores per memory domain",
                 xticks=0:4:maximum(:var"# Threads per domain"),
                 ylabel="Memory Bandwidth [GB/s]",
-                label="",
                 marker=:circle,
                 markersize=3,
                 )

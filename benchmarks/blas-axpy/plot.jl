@@ -17,9 +17,9 @@ openblas_64 = readdlm(joinpath(@__DIR__, "openblas_Float64.csv"), ',', Float64; 
 gflops(n, t) = 2 * n / max(t, 32)
 
 # https://resources.nvidia.com/en-us-grace-cpu/grace-hopper-superchip
-l1_size =  64 << 10 #  64 KB
-l2_size =   1 << 20 #   1 MB
-l3_size = 117 << 20 # 117 MB
+l1_size =  64 << 10 #  64 KiB
+l2_size =   1 << 20 #   1 MiB
+l3_size = 114 << 20 # 114 MiB (hwloc says L3 is 114 MiB, not 117 as written in the datasheet)
 
 function plot_benchmarks(title, julia; type::Union{Nothing,DataType}=nothing)
     p = plot(; title=title, xscale=:log10, xlabel="Vector size", ylabel="GFLOPS",
