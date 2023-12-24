@@ -1,0 +1,5 @@
+[deps]
+JuliaStream = "1bdcc9b7-f5ed-4705-bc7b-be1b748ec681"
+
+[compat]
+julia = "~1.9"
