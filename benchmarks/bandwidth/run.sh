@@ -1,3 +1,3 @@
 #!/bin/bash
 
-julia --project=. --threads=72 bench.jl &> output.txt
+julia --startup-file=no --project=. --threads=72 bench.jl | tee output.txt
