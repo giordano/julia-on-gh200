@@ -3,15 +3,15 @@ Version: 5.0
 Implementation: Julia; /home/cceamgi/.julia/packages/JuliaStream/BaVlG/src/CUDAStream.jl
 Running kernels 100 times
 Precision: double
-Array size: 10469.0 MB(=10.5 GB)
-Total size: 31406.9 MB(=31.4 GB)
+Array size: 31406.9 MB(=31.4 GB)
+Total size: 94220.8 MB(=94.2 GB)
 Using CUDA device: GH200 480GB (CuDevice(0))
-Kernel parameters: <<<1277952,1024>>>
-Init: 3.73152 s (=8416.65877 MBytes/sec)
-Read: 100.73144 s (=311.78893 MBytes/sec)
+Kernel parameters: <<<3833856,1024>>>
+Init: 3.73804 s (=25205.91689 MBytes/sec)
+Read: 41.94053 s (=2246.53445 MBytes/sec)
 Function    MBytes/sec  Min (sec)   Max         Average     
-Copy        3.204006647e60.00653     0.29457     0.00942     
-Mul         3.199182123e60.00654     0.16064     0.00809     
-Add         3.562272308e60.00882     0.14563     0.01019     
-Triad       3.563216e6  0.00881     0.17419     0.01048     
-Dot         3.783013445e60.00553     1.1332      0.01683     
+Copy        3.208071884e60.01958     0.29708     0.02236     
+Mul         3.206803736e60.01959     0.17374     0.02115     
+Add         3.568235725e60.02641     0.16598     0.02781     
+Triad       3.566912998e60.02642     0.19253     0.02808     
+Dot         3.794995744e60.01655     1.13558     0.02777     
