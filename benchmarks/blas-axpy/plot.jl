@@ -4,12 +4,12 @@ julia_16 = readdlm(joinpath(@__DIR__, "julia_Float16.csv"), ',', Float64; skipst
 julia_32 = readdlm(joinpath(@__DIR__, "julia_Float32.csv"), ',', Float64; skipstart=1)
 nvpl_32 = readdlm(joinpath(@__DIR__, "nvpl_Float32.csv"), ',', Float64; skipstart=1)
 # blis_32 = readdlm(joinpath(@__DIR__, "blis_Float32.csv"), ',', Float64; skipstart=1)
-# armpl_32 = readdlm(joinpath(@__DIR__, "armpl_Float32.csv"), ',', Float64; skipstart=1)
+armpl_32 = readdlm(joinpath(@__DIR__, "armpl_Float32.csv"), ',', Float64; skipstart=1)
 openblas_32 = readdlm(joinpath(@__DIR__, "openblas_Float32.csv"), ',', Float64; skipstart=1)
 julia_64 = readdlm(joinpath(@__DIR__, "julia_Float64.csv"), ',', Float64; skipstart=1)
 nvpl_64 = readdlm(joinpath(@__DIR__, "nvpl_Float64.csv"), ',', Float64; skipstart=1)
 # blis_64 = readdlm(joinpath(@__DIR__, "blis_Float64.csv"), ',', Float64; skipstart=1)
-# armpl_64 = readdlm(joinpath(@__DIR__, "armpl_Float64.csv"), ',', Float64; skipstart=1)
+armpl_64 = readdlm(joinpath(@__DIR__, "armpl_Float64.csv"), ',', Float64; skipstart=1)
 openblas_64 = readdlm(joinpath(@__DIR__, "openblas_Float64.csv"), ',', Float64; skipstart=1)
 
 # Hack: for small vector sizes, times are subnanoseconds, in the case the bumpt
@@ -38,18 +38,18 @@ function plot_benchmarks(title, julia; type::Union{Nothing,DataType}=nothing)
     return p
 end
 
-function plot_benchmarks(title, julia, nvpl, #=blis,=# openblas; type::Union{Nothing,DataType}=nothing)
+function plot_benchmarks(title, julia, nvpl, armpl, openblas; type::Union{Nothing,DataType}=nothing)
     p = plot_benchmarks(title, julia; type)
     plot!(p, nvpl[:, 1], gflops.(nvpl[:, 1], nvpl[:, 2]); label="NVPL", marker=:star, markersize=3)
     # plot!(p, blis[:, 1], gflops.(blis[:, 1], blis[:, 2]); label="BLIS", marker=:diamond, markersize=3)
     plot!(p, openblas[:, 1], gflops.(openblas[:, 1], openblas[:, 2]); label="OpenBLAS", marker=:cross, markersize=3)
-    # plot!(p, armpl[:, 1], gflops.(armpl[:, 1], armpl[:, 2]); label="ARMPL", marker=:utriangle, markersize=3)
+    plot!(p, armpl[:, 1], gflops.(armpl[:, 1], armpl[:, 2]); label="ARMPL", marker=:utriangle, markersize=3)
     return p
 end
 
 plot_benchmarks("axpy (half precision)", julia_16; type=Float16)
 savefig("axpy-half.pdf")
-plot_benchmarks("axpy (single precision)", julia_32, nvpl_32, openblas_32, #=blis_32=#; type=Float32)
+plot_benchmarks("axpy (single precision)", julia_32, nvpl_32, openblas_32, armpl_32; type=Float32)
 savefig("axpy-single.pdf")
-plot_benchmarks("axpy (double precision)", julia_64, nvpl_64, openblas_64, #=blis_64=#; type=Float64)
+plot_benchmarks("axpy (double precision)", julia_64, nvpl_64, openblas_64, armpl_64; type=Float64)
 savefig("axpy-double.pdf")
