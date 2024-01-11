@@ -1,7 +1,8 @@
 include(joinpath(@__DIR__, "common.jl"))
 
 using LinearAlgebra
-const nvpl = "/usr/lib64/libnvpl_blas_ilp64_gomp.so.0.1.0"
+using Libdl
+const nvpl = find_library("libnvpl_blas_ilp64_gomp.so")
 
 # Make sure we're using NVPL
 let
