@@ -14,7 +14,8 @@ openblas_64 = readdlm(joinpath(@__DIR__, "openblas_Float64.csv"), ',', Float64; 
 
 # Hack: for small vector sizes, times are subnanoseconds, in the case the bumpt
 # them to 32ns, which is what empirically found to be the minimum otherwise.
-gflops(n, t) = 2 * n / max(t, 32)
+gflops(n::Float64, t::Float64) = 2 * n / max(t, 32)
+gflops(m::Matrix{Float64}) = gflops.(m[:, 1], m[:, 2])
 
 # https://resources.nvidia.com/en-us-grace-cpu/grace-hopper-superchip
 l1_size =  64 << 10 #  64 KiB
@@ -24,7 +25,7 @@ l3_size = 114 << 20 # 114 MiB (hwloc says L3 is 114 MiB, not 117 as written in t
 function plot_benchmarks(title, julia; type::Union{Nothing,DataType}=nothing)
     p = plot(; title=title, xscale=:log10, xlabel="Vector size", ylabel="GFLOPS",
              xticks=floor.(Int, exp10.(0:9)), yticks=0:5:60, legend=:topleft)
-    plot!(p, julia[:, 1], gflops.(julia[:, 1], julia[:, 2]); label="Julia", marker=:circle, markersize=3)
+    plot!(p, julia[:, 1], gflops(julia); label="Julia", marker=:circle, markersize=3)
     if !isnothing(type)
         # Lines corresponding to cache sizes.  Remember that there are two
         # vectors involved, hence the factor `2` at the denominator.
@@ -38,12 +39,12 @@ function plot_benchmarks(title, julia; type::Union{Nothing,DataType}=nothing)
     return p
 end
 
-function plot_benchmarks(title, julia, nvpl, armpl, openblas; type::Union{Nothing,DataType}=nothing)
+function plot_benchmarks(title, julia, nvpl, openblas, armpl; type::Union{Nothing,DataType}=nothing)
     p = plot_benchmarks(title, julia; type)
-    plot!(p, nvpl[:, 1], gflops.(nvpl[:, 1], nvpl[:, 2]); label="NVPL", marker=:star, markersize=3)
-    # plot!(p, blis[:, 1], gflops.(blis[:, 1], blis[:, 2]); label="BLIS", marker=:diamond, markersize=3)
-    plot!(p, openblas[:, 1], gflops.(openblas[:, 1], openblas[:, 2]); label="OpenBLAS", marker=:cross, markersize=3)
-    plot!(p, armpl[:, 1], gflops.(armpl[:, 1], armpl[:, 2]); label="ARMPL", marker=:utriangle, markersize=3)
+    plot!(p, nvpl[:, 1], gflops(nvpl); label="NVPL", marker=:star, markersize=3)
+    # plot!(p, blis[:, 1], gflops(blis); label="BLIS", marker=:diamond, markersize=3)
+    plot!(p, openblas[:, 1], gflops(openblas); label="OpenBLAS", marker=:cross, markersize=3)
+    plot!(p, armpl[:, 1], gflops(armpl); label="ARMPL", marker=:utriangle, markersize=3)
     return p
 end
 
