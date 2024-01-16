@@ -15,6 +15,7 @@ Some relevant documents:
 
 * [NVIDIA GH200 Grace Hopper Superchip datasheet](https://resources.nvidia.com/en-us-grace-cpu/grace-hopper-superchip)
 * [NVIDIA GH200 Benchmarking Guide](https://docs.nvidia.com/gh200-benchmarking-guide.pdf)
+* [NVIDIA Grace Performance Tuning Guide](https://docs.nvidia.com/grace-performance-tuning-guide.pdf)
 
 Note: benchmarks have been run with a Julia installation provided by
 [juliaup](https://github.com/JuliaLang/juliaup), which allows managing different
