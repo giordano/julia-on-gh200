@@ -24,7 +24,7 @@ l3_size = 114 << 20 # 114 MiB (hwloc says L3 is 114 MiB, not 117 as written in t
 linewidth = 2
 
 function plot_benchmarks(title, julia; type::Union{Nothing,DataType}=nothing)
-    p = plot()
+    p = plot() # if you want it to be wider: plot(; size=(600,300))
     if !isnothing(type)
         # Lines corresponding to cache sizes.  Remember that there are two
         # vectors involved, hence the factor `2` at the denominator.
